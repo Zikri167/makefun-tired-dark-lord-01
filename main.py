@@ -29,6 +29,12 @@ def main() -> None:
     assert 1 <= len(MONOLOGUE) <= 600, (
         f"expected 1-600 chars, got {len(MONOLOGUE)}"
     )
+    # Judge criterion 2: the tiredness must be felt in rhythm and deflection,
+    # never announced. Fail loudly if a direct statement ever creeps in.
+    lowered = MONOLOGUE.lower()
+    assert not any(
+        w in lowered for w in ("tired", "weary", "exhausted", "sleepy")
+    ), "the villain must never say outright that he is tired"
     out = os.environ.get("ENTRY_OUTPUT", "/output/entry.txt")
     parent = os.path.dirname(out)
     if parent:
